@@ -1,0 +1,16 @@
+# Backup files
+*.bak
+
+# Build Process
+*.obj
+
+# Executables
+*.x
+*.exe
+
+# Dist
+*.tar
+*.tgz
+*.gz
+
+
