@@ -57,27 +57,27 @@ namespace CambridgeSoftware
 	            struct winsize ts;
 	            ioctl(0, TIOCGWINSZ, &ts);
 
-	            int i_col_weight = 40;
+	            uintmax_t i_col_weight = 40;
 
 	            if( ts.ws_col > 0)
 	            {
-		            i_col_weight = (int) ceil( pl.i_max_count / ts.ws_col);
+		            i_col_weight = (uintmax_t) ceil( pl.i_max_count / ts.ws_col);
 		            if(i_col_weight < 1)
 		                i_col_weight = 1;
 		            else
-		                i_col_weight = (int) ceil( i_col_weight * 1.05 );
+		                i_col_weight = (uintmax_t) ceil( i_col_weight * 1.05 );
 	            }
 
 	            for(auto lident : pl.bucket_list)
 	            {
 		            if( lident.MyCount() <= 1) continue;
-		            int li_weight = ceil( lident.MyCount() / i_col_weight);
+		            uintmax_t li_weight = ceil( lident.MyCount() / i_col_weight);
 
 		            if( li_weight <= 1 ) continue;
 		            // TODO: Pretty-fi output; SysLogCountBucket derived classes need "Pretty name", a 'virtual string get_prettyname()'.
 		            outs << lident.ident << endl;
 
-		            for(int il=0; il<li_weight; il++) outs << "*";
+		            for(uintmax_t il=0; il<li_weight; il++) outs << "*";
 		            outs << endl;
 	            }
 
@@ -102,7 +102,7 @@ namespace CambridgeSoftware
             SyslogCountSettings settings;
             
         	vector<SysLogCountBucket> bucket_list{};
-           	int i_max_count = 0;
+           	uintmax_t i_max_count = 0;
 	        const int i_min_ignor = 1; // TODO: This could be overiden with cmd-line option.
 
             // TODO: max num of error's could be height of the terminal/console, ioctl()

@@ -23,6 +23,7 @@ SOFTWARE.
 */
 #include <string>
 #include <iostream>
+#include <cstdint>
 
 using namespace std;
 
@@ -39,11 +40,16 @@ namespace CambridgeSoftware
 
             string ident;
 
-            int MyCount(){ return count; }
+            uintmax_t MyCount(){ return count; }
+            
+            bool NumericOverflowed() { return b_overflow; }
 
             SysLogCountBucket& operator++() // Prefix 
 	        {
-		        ++count;
+                if( count == UINTMAX_MAX )
+                    b_overflow = true;
+                else
+                    ++count;
 		        return *this;
 	        }
 
@@ -64,7 +70,9 @@ namespace CambridgeSoftware
             }
 
         private:
-                int count = 1;
+                uintmax_t count = 1;
+                
+                bool b_overflow = false;
 
     };
 
