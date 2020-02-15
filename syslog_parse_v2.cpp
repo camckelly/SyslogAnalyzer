@@ -67,8 +67,7 @@ int main(int argc,char* argv[])
 
     {
         unique_ptr<SysLogBucketCollection> counter;
-        if(config.get_settings() > Ident)
-        {
+        if(config.get_settings() > Ident) {
             counter = make_unique<SysLogTimeSeries>( );
         } else {
             counter = make_unique<SysLogIdentList>( );
@@ -86,4 +85,3 @@ int main(int argc,char* argv[])
 
     return 0;
 }
-

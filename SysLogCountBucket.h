@@ -30,57 +30,60 @@ using namespace std;
 namespace CambridgeSoftware
 {
 
-    class SysLogCountBucket
+class SysLogCountBucket {
+public:
+    SysLogCountBucket(string pident)
+        : ident{pident} {};
+
+    // virtual string get_prettyname() = 0; *need to change SyslogColumnSelectEnum into a derived class of this one.
+    string get_ident() {
+        return ident;
+    }
+
+    uintmax_t MyCount() {
+        return count;
+    }
+
+    bool NumericOverflowed() {
+        return b_overflow;
+    }
+
+    SysLogCountBucket& operator++() // Prefix
     {
-        public:
-            SysLogCountBucket(string pident)
-                    : ident{pident} {};
+        if( count == UINTMAX_MAX )
+            b_overflow = true;
+        else
+            ++count;
+        return *this;
+    }
 
-            // virtual string get_prettyname() = 0; *need to change SyslogColumnSelectEnum into a derived class of this one.
+    // Implemented Postfix increment operator just-for-fun, but its not used.
+    // SysLogCountBucket  operator++(int)
+    // { SysLogCountBucket tmp(*this); tmp.count++; return tmp; } // PostFix
 
-            string ident;
+    friend ostream& operator<<(ostream& os,SysLogCountBucket& pslic);
 
-            uintmax_t MyCount(){ return count; }
-            
-            bool NumericOverflowed() { return b_overflow; }
+    friend bool operator==(const SysLogCountBucket& l, const SysLogCountBucket& r) {
+        return ( l.ident == r.ident );
+    }
 
-            SysLogCountBucket& operator++() // Prefix 
-	        {
-                if( count == UINTMAX_MAX )
-                    b_overflow = true;
-                else
-                    ++count;
-		        return *this;
-	        }
+    friend bool operator!=(const SysLogCountBucket& l, const SysLogCountBucket& r) {
+        return ( l.ident != r.ident );
+    }
 
-	        // Implemented Postfix increment operator just-for-fun, but its not used.
-            // SysLogCountBucket  operator++(int)
-            // { SysLogCountBucket tmp(*this); tmp.count++; return tmp; } // PostFix
+private:
+    string ident;
 
-	        friend ostream& operator<<(ostream& os,SysLogCountBucket& pslic);
+    uintmax_t count = 1;
 
-            friend bool operator==(const SysLogCountBucket& l, const SysLogCountBucket& r)
-            {
-                return ( l.ident == r.ident );
-            }
-            
-            friend bool operator!=(const SysLogCountBucket& l, const SysLogCountBucket& r)
-            {
-                return ( l.ident != r.ident );
-            }
+    bool b_overflow = false;
 
-        private:
-                uintmax_t count = 1;
-                
-                bool b_overflow = false;
+};
 
-    };
-
-    /* ostream& operator<<(ostream& os,SysLogCountBucket& pslic)
-    {
-	    os << pslic.ident << endl << pslic.count << endl;
-	    return os;
-    } */
+/* ostream& operator<<(ostream& os,SysLogCountBucket& pslic)
+{
+    os << pslic.ident << endl << pslic.count << endl;
+    return os;
+} */
 
 }
-
