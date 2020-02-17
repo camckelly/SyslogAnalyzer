@@ -35,6 +35,7 @@ namespace CambridgeSoftware
 
 // TODO: Add cmd-line option locale.
 // TODO: Maybe Add an "alltimes" that will compute all 5 of the time-series calculations ?
+// TODO: Add cmd-line option, year of the log, useful when the file was already
 
 // Rsyslog writes log-entries to different column specifications, it calls "templates."
 // The template supported here is RSYSLOG_TraditionalFileFormat
@@ -148,12 +149,11 @@ private:
     }
 
 
-    std::string str_tolower(std::string s) {
-        std::transform(s.begin(), s.end(), s.begin(),
-        [](unsigned char c) {
-            return std::tolower(c);
-        }
-                      );
+    string str_tolower(string s)
+    {
+        transform(s.begin(), s.end(), s.begin(),
+            [](unsigned char c) { return tolower(c); } );
+
         return s;
     }
 

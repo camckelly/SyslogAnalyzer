@@ -97,7 +97,8 @@ public:
                             tcnt++;
                         }
                     }
-                    // TODO: Get year from file's time-attribute.
+                    // TODO: Get year from file's time-attribute; this will need to be function
+                    // if ext4, then ctime, but it will be different for diff fs-types.
                     tmrec.tm_year = 2019 - 1900;
                     tmrec.tm_isdst = -1;
                     mktime( &tmrec );
