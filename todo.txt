@@ -5,14 +5,16 @@ Vision:
 ======
 A light-weight, syslog count/analyzer, with filters.
 
-Summer 2019:
-===========
-Granted, some of the counting could be done by piping some grep output to the "wc -l" command, but that won't filter out a time slice, like "exclude all Sundays".
+Progress
+========
+Granted, some of the counting could be done by piping some grep output to the "wc -l" command, but that won't filter out a time span, like "exclude all Sundays".
 
 Some TODO's can be found in the source code.
 
 Other ideas include:
-+Capability to filter out records.
++Capability to filter out records by regex match.
+
++Filter out records within a time-span.
 
 +GUI user interface with FLTK library (also light-weight), including pie charts.
 
