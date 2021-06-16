@@ -63,7 +63,10 @@ namespace cambridgesoftware
 
                 public int ConsoleColumnWeight()
                 {
-                        return (int) Math.Ceiling( (double) (i_max / Console.WindowWidth) * 1.05 );
+                        int result = Convert.ToInt32( (i_max / Console.WindowWidth) * 1.05 );
+                        if(result < 1)
+                                result = 1;
+                        return result;
                 }
 
                 public void OutputToConsole()
