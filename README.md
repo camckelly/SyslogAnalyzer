@@ -12,9 +12,11 @@ There is a C++11 version in folder 'cpp', and an unfinished Mono-Project C# vers
 How To Compile
 ==============
 It should compile with any C++11 compiler, but I've been using "g++", like this :
+
 $ g++ -o ./syslog_parse.x ./syslog_parse_v2.cpp
 
 For the Mono Project Version, the following works for Mono Version 4.6 :
+
 $ mcs -out:syslog_analyzer.exe main.cs SyslogAnalyzer.cs SyslogCountSettings.cs
 
 
