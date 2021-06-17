@@ -22,3 +22,4 @@ Other ideas include:
 
 +A testing folder: test date-time conversion reliability, ...other tests??
 
++Optionally, save single-records for further analysis.

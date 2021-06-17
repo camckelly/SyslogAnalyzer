@@ -69,13 +69,13 @@ public:
 
         for(auto lident : pl.bucket_list) {
             if( lident.MyCount() <= 1) continue;
-            uintmax_t li_weight = ceil( lident.MyCount() / i_col_weight);
+            int li_weight = (int) ceil( (double)lident.MyCount() / i_col_weight);
 
             if( li_weight <= 1 ) continue;
 
             outs << pl.cout_bucket_userfriendly(lident) << endl;
 
-            for(uintmax_t il=0; il<li_weight; il++) outs << "*";
+            for(int il=0; il<li_weight; il++) outs << "*";
             outs << endl;
         }
 

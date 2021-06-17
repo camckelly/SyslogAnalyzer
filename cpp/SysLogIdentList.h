@@ -62,16 +62,16 @@ public:
                     getline(iss,token,settings.cDelim);
                     if( token.size() > 0 )
                         tcnt++;
-                    // cout << endl << "**TOKEN= " << token;
                 }
-                // cout << endl << token;
+                string::size_type n = token.find("[");
+		if(n != string::npos)
+			token = token.substr(0, n);
                 token_found(token);
-
             }
 
         } else {
             stringstream errms{};
-            errms << "Unable to open log file " << settings.get_logname() ;
+            errms << "Unable to open log file " << settings.get_logname() << ", might need 'admin' privileges?";
             ls_errors.push_back(errms.str());
         }
 
