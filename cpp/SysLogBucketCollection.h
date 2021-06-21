@@ -103,7 +103,7 @@ protected:
     const int i_min_ignor = 1; // TODO: This could be overiden with cmd-line option.
 
     // TODO: max num of error's could be height of the terminal/console, ioctl()
-    int i_max_errors = 24;
+    size_t i_max_errors = 24;
 
     void token_found(string ps)
     {

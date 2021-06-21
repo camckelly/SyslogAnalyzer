@@ -93,7 +93,7 @@ private:
                 smatch m;
                 string _sfilename(pargv[1]);
                 s_path_logname = _sfilename;
-                int i_trim = _sfilename.rfind("/");
+                size_t i_trim = _sfilename.rfind("/");
 
                 if( i_trim != string::npos ) {
                     _sfilename = _sfilename.substr( i_trim+1 );
