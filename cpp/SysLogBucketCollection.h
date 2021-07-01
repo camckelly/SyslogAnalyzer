@@ -51,8 +51,15 @@ public:
 
     vector<string> ls_errors{};
 
-
-    friend ostream& operator<<(ostream& outs,SysLogBucketCollection& pl)
+    friend ostream& operator<<(ostream& outs, SysLogBucketCollection& pl)
+    {
+        if(pl.settings.outputFormat == SyslogOutputFormatEnum::GraphOutput)
+            return pl.graph_output(outs);
+        else
+            return pl.csv_output(outs);
+    }
+    
+    ostream& graph_output(ostream& outs)
     {
         struct winsize ts;
         ioctl(0, TIOCGWINSZ, &ts);
@@ -60,20 +67,20 @@ public:
         uintmax_t i_col_weight = 40;
 
         if( ts.ws_col > 0) {
-            i_col_weight = (uintmax_t) ceil( pl.i_max_count / ts.ws_col);
+            i_col_weight = (uintmax_t) ceil( i_max_count / ts.ws_col);
             if(i_col_weight < 1)
                 i_col_weight = 1;
             else
                 i_col_weight = (uintmax_t) ceil( i_col_weight * 1.05 );
         }
 
-        for(auto lident : pl.bucket_list) {
+        for(auto lident : bucket_list) {
             if( lident.MyCount() <= 1) continue;
             int li_weight = (int) ceil( (double)lident.MyCount() / i_col_weight);
 
             if( li_weight <= 1 ) continue;
 
-            outs << pl.cout_bucket_userfriendly(lident) << endl;
+            outs << cout_bucket_userfriendly(lident) << endl;
 
             for(int il=0; il<li_weight; il++) outs << "*";
             outs << endl;
@@ -81,6 +88,16 @@ public:
 
         outs << endl;
 
+        return outs;
+    }
+    
+    ostream& csv_output(ostream& outs)
+    {
+        for(auto lident : bucket_list) {
+            if( lident.MyCount() <= 1) continue;
+            outs << cout_bucket_userfriendly(lident) << ", " << lident.MyCount() << endl;
+        }
+        outs << endl;
         return outs;
     }
 

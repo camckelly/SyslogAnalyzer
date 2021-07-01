@@ -1,25 +1,22 @@
-Syslog Analyzer To Do
-=======================
+# Syslog Analyzer To Do
 
-Vision:
-======
+# Vision:
 A light-weight, syslog count/analyzer, with filters.
 
-Summer 2019:
-===========
+# TODO
 Granted, some of the counting could be done by piping some grep output to the "wc -l" command, but that won't filter out a time slice, like "exclude all Sundays".
 
-Some TODO's can be found in the source code.
+SysLogTimeSeries.h is not finished, and is not used yet. It is intended to be used to convert string-dates in the log to a calendar-type, which we could then be used for advanced date filtering, like "Exclude Sunday's".
 
-Other ideas include:
-+Capability to filter records that match a regex.
+Another program that filters the records, which would then be saved to a new text file for further analysis.
+This would be another program because you don't want to cram too much into one command-line utility.
 
-+Filter records that fall within a time-span.
+GUI user interface with FLTK library (also light-weight), including pie charts.
 
-+GUI user interface with FLTK library (also light-weight), including pie charts.
+Locale / language support.
 
-+Locale / language support.
+A testing folder: test date-time conversion reliability, ...other tests??
 
-+A testing folder: test date-time conversion reliability, ...other tests??
+Save single-records for further analysis.
 
-+Optionally, save single-records for further analysis.
+A Windows Event Log version.

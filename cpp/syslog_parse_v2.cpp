@@ -35,13 +35,14 @@ using namespace CambridgeSoftware;
 
 void print_usage()
 {
-    cout << "The purpose of this program is to count something of your choice" << endl;
-    cout << "in the system log, 'syslog'. Output is a horizontal bar-graph" << endl;
-    cout << "of asterisk's." << endl;
+    cout << "The purpose of this program is to count something of your choice in" << endl;
+    cout << "the system log, 'syslog'. Default output-format is a horizontal bar-graph," << endl;
+    cout << "or you can select CSV." << endl;
     cout << "Usage:" << endl;
-    cout << "syslog_parse.x (path to a syslog file) (something to count, month|hour|day|host|ident|week|dayofweek)" << endl;
+    cout << "syslog_parse.x (path to syslog file) (something to count, month|hour|day|host|ident|week|dayofweek) (Optional: CsvFormat)" << endl;
     cout << "syslog_parse.x /var/log/syslog.1" << endl;
     cout << "syslog_parse.x /var/log/syslog month" << endl;
+    cout << "syslog_parse.x syslogcopy.csv ident csvformat" <<endl;
     cout << "" << endl;
     return ;
 }
@@ -57,7 +58,7 @@ int main(int argc,char* argv[])
 
     // Prepare Confg Settings
     SyslogCountSettings config;
-    config.check_parameters(argc,argv);
+    config.check_cmdline_args(argc,argv);
 
     if( config.args_not_sane() ) {
         cout << "Didn't understand those command-line options." << endl;

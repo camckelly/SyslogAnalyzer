@@ -78,7 +78,8 @@ public:
                 istringstream iss{sline};
 
                 try {
-                    // TODO: Determine actual column, '15'
+                    // We can use column 15 below because it comes from
+                    // rsyslog template name 'FileFormat', which uses rfc3339
                     stringstream ssdate{ sline.substr(0, 15) };
 
 
@@ -120,7 +121,6 @@ private:
     int convert_month(string psm)
     {
         // TODO: Account for locale;
-        // TODO: These might be listed in a syslog header somewhere ??
         string list_months[] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
 
         for(int x=0; x<12; x++) {
@@ -193,8 +193,6 @@ private:
         return;
     }
 
-
-    // TODO: Detect which columns have the time-data by syslog config.
     int i_max_col = 3;
     int i_month_col = 0;
     int i_mday_col = 1;

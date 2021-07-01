@@ -43,16 +43,32 @@ namespace CambridgeSoftware
 enum SyslogColumnSelectEnum { byMonth=0, DayOfMonth=1, byHour=2, hostName=3,
                               Ident=4, byWeek=90, DayOfWeek=91 };
 
+enum SyslogOutputFormatEnum { GraphOutput, CsvOutput };
+
 class SyslogCountSettings {
 public:
 
     static const char cDelim = ' ';
 
-    void check_parameters(int _parg,char* _pargv[])
+    SyslogOutputFormatEnum outputFormat = SyslogOutputFormatEnum::CsvOutput;
+
+    void check_cmdline_args(int _parg,char* _pargv[])
     {
+        // 1. Check Sanity
         i_args_ok = ! check_args_sane( _parg, _pargv );
+        // 2. Get column user wants counted
         if(_parg > 2)
             i_setting = parse_col_selected(_pargv[2]);
+        // 3. Get Optional output-format
+        if(_parg > 3 )
+        {
+            if( !(str_tolower(_pargv[3])).compare("csvoutput") )
+                outputFormat = SyslogOutputFormatEnum::CsvOutput;
+            else
+                cout << "Ignoring cmdline arg, " << _pargv[3] << endl;
+        }
+        else
+            outputFormat = SyslogOutputFormatEnum::GraphOutput;
     }
 
     /* SyslogCountSettings(const SyslogCountSettings& pc) :
