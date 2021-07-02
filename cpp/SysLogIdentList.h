@@ -64,8 +64,8 @@ public:
                         tcnt++;
                 }
                 string::size_type n = token.find("[");
-		if(n != string::npos)
-			token = token.substr(0, n);
+                if(n != string::npos)
+                    token = token.substr(0, n);
                 token_found(token);
             }
 

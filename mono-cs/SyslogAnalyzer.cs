@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
+// using System.Text.RegularExpressions;
 
 namespace cambridgesoftware
 {
@@ -15,13 +15,13 @@ namespace cambridgesoftware
                 // Path to the syslog file to be analyzed
                 string s_path = "";
 
-		// Collection of each "ident", and their number of records in the syslog file
+                // Collection of each "ident", and their number of records in the syslog file
                 Dictionary<string,int> counts = new Dictionary<string,int>();
 
-		// The highest number of records; used to calculate a console-column weight, for Console output.
+                // The highest number of records; used to calculate a console-column weight, for Console output.
                 int i_max = 0;
 
-		SyslogCountSettings config = null;
+                SyslogCountSettings config = null;
 
                 #endregion
 
@@ -32,19 +32,18 @@ namespace cambridgesoftware
                 /// </summary>
                 /// <param>Optional, Path to syslog file, defaults to /var/log/syslog</param>
                 public SyslogAnalyzer(SyslogCountSettings pconfig, string ps = @"/var/log/syslog")
-		{
+                {
                         s_path = ps;
-			config = pconfig;
+                        config = pconfig;
                 }
 
                 public void RunAnalysis()
                 {
-			// TODO: Left off here. Use 'config' class-member.
+                        // TODO: Left off here. Use 'config' class-member.
                         // 1) Open file
                         using(StreamReader flog = new StreamReader(s_path))
                         {
                                 string line;
-                                const string pattern = @"\s*([\w|\.|\-]+)";
 
                                 // 2) Loop foreach line
                                 while((line = flog.ReadLine()) != null)
@@ -52,7 +51,14 @@ namespace cambridgesoftware
                                         string[] tokens = line.Split(' ');
                                         if(tokens.Length > 4)
                                         {
-                                                string ident = (Regex.Match(tokens[4], pattern)).Value;
+                                                // Something like "Jun  1" (with 2 spaces) will return an extra blank token.
+                                                int tindx = 4;
+                                                if(String.IsNullOrEmpty(tokens[1]))
+                                                    tindx = 5;
+                                                string ident = tokens[tindx];
+                                                int n = ident.IndexOf("[");
+                                                if(n>0)
+                                                    ident = ident.Substring(0,n);
                                                 if(counts.ContainsKey(ident))
                                                         counts[ident] = counts[ident] + 1;
                                                 else
@@ -67,10 +73,10 @@ namespace cambridgesoftware
 
                 public int ConsoleColumnWeight()
                 {
-			int result = Convert.ToInt32( (i_max / Console.WindowWidth) * 1.05 );
-			if(result < 1)
-				result = 1;
-			return result;
+                        int result = Convert.ToInt32( (i_max / Console.WindowWidth) * 1.05 );
+                        if(result < 1)
+                                result = 1;
+                        return result;
                 }
 
                 public void OutputToConsole()
@@ -88,11 +94,11 @@ namespace cambridgesoftware
                         foreach(string sk in counts.Keys)
                         {
                                 int my_weight = (int) Math.Ceiling( (double) counts[sk] / i_col_weight );
-				if(my_weight > 1)
-				{
-					Console.WriteLine("{0}{1}{2}", sk, Environment.NewLine, new string('*', my_weight ));
-					Console.WriteLine();
-				}
+                                if(my_weight > 1)
+                                {
+                                        Console.WriteLine("{0}{1}{2}", sk, Environment.NewLine, new string('*', my_weight ));
+                                        Console.WriteLine();
+                                }
                         }
 
                         return ;

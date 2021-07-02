@@ -35,9 +35,8 @@ SOFTWARE.
 using namespace std;
 
 /*
-	The purpose of this (unfinished) class is to calculate the time-series
-	byMonth-hoizontal graph of log-events for each month
-	byDay - events for each day...
+    The purpose of this (unfinished) class is to convert string-dates into calendar-types, so...
+    so syslog records can be filtered/counted by various calendar criteria.
 */
 
 
