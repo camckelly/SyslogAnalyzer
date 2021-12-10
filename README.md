@@ -23,7 +23,7 @@ On most Linux systems, you'll need elevated permissions to access the logs, and 
 Enjoy!
 
 # Background
-The inspiration for this program was actually another that I wrote some time ago on a Microsoft Windows system. A coworker was trying to open a log file (CSV, 'comma separated values') with Excel, but Excel would stall/hang, and crash before it even had a chance to realize the file exceeded Excel's maximum number of rows. The file was too large. So I wrote a program using C++ knowing the execution-time would be better than C# and the .NET Framework.
+The inspiration for this program was actually another that I wrote some time ago on a Microsoft Windows system. We had a recurring need to analyze a log file (CSV, 'comma separated values'), and Microsoft Windows will try to open such a file using Excel. But Excel would stall/hang, and crash before it even had a chance to realize the file exceeded Excel's maximum number of rows. The file was too large. So I wrote a program using C++ knowing the execution-time would be better than C# and the .NET Framework.
 
 Microsoft's C# lanugage is an excellent option for your typical business-applications and I prefer it. The Mono Project C# version here was just an afterthought for comparing execution-time, and just for fun.
 
