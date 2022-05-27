@@ -121,7 +121,7 @@ private:
                     return 1;
 
                 // 1.2 File name max 14 characters
-                if( _sfilename.size() > 14 )
+                if( _sfilename.size() > 255 )
                     return 1;
 
                 // 1.3  hyphen can't be 1st character
